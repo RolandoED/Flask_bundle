@@ -24,5 +24,19 @@ def server():
         return "Watch the logs."
 
 
+"""Get Server(North East Virginia) Time with Costa Rican time zone"""
+@app.route('/time')
+def server_second():
+    try:
+        utcmoment_naive = datetime.utcnow()
+        utcmoment = utcmoment_naive.replace(tzinfo=pytz.utc).replace(microsecond=0)
+        localDatetime = utcmoment.astimezone(pytz.timezone('America/Costa_Rica'))
+        print(str(localDatetime.isoformat()))
+        return str(localDatetime.isoformat())
+    except Exception as e:
+        print(e)
+        return "Watch the logs."
+
+
 if __name__ == '__main__':
     app.run(debug=True, threaded=True, port=80, host='0.0.0.0')
